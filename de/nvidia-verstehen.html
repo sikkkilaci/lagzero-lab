@@ -1,0 +1,240 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src data:; connect-src https://*.amazonaws.com; frame-src 'self' blob:; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="author" content="LAG|ZERØ">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NVIDIA Systemsteuerung – 3D-Einstellungen</title><style>
+:root{--bg:#0b0f14;--card:#111821;--text:#edf2f7;--muted:#9aa8b7;--accent:#76b900;--border:#263342}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#080b0f,#101821);color:var(--text);font-family:Segoe UI,Arial,sans-serif;line-height:1.45}
+header{padding:34px 5vw 24px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(8,11,15,.96);z-index:2}h1{margin:0 0 6px;font-size:29px}header p{margin:0;color:var(--muted)}
+.controls{display:flex;gap:10px;margin-top:16px}.controls input,.controls select{background:#0c1219;border:1px solid var(--border);color:var(--text);padding:10px 12px;border-radius:8px}
+main{width:min(1180px,90vw);margin:28px auto 60px}.legend,.source{background:var(--card);border:1px solid var(--border);padding:16px 18px;border-radius:12px;margin-bottom:20px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:16px}.card{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:18px}.top{display:flex;gap:12px}.num{min-width:34px;height:34px;border-radius:8px;background:#1b2834;display:grid;place-items:center;font-weight:700;color:var(--accent)}
+h2{font-size:17px;margin:0}.value{display:inline-block;margin-top:5px;padding:4px 8px;border-radius:6px;background:rgba(118,185,0,.12);color:#bde77b;font-weight:700;font-size:13px}
+.desc{color:#d5dde6;margin:13px 0 0}.impact{color:#b8c3ce;margin:9px 0 0;font-size:14px}.note{color:#8fa0b1;font-size:12px;margin-top:10px}.barrow{display:grid;grid-template-columns:92px 1fr 30px;gap:8px;align-items:center;margin-top:8px;font-size:12px;color:var(--muted)}.bar{height:8px;background:#202b36;border-radius:99px;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,#42515e,var(--accent));border-radius:99px}.label{display:block;color:var(--muted);font-size:12px;margin-top:15px}.hidden{display:none!important}.source a{color:#9fd34b}
+@media(max-width:600px){.grid{grid-template-columns:1fr}main{width:94vw}.barrow{grid-template-columns:78px 1fr 30px}}
+
+:root{--bg:#050609;--card:#0b0d11;--text:#f0f2f4;--muted:#939ba4;--accent:#e31b23;--border:#2d3239}
+body{background:radial-gradient(circle at 80% 0%,rgba(227,27,35,.10),transparent 28%),radial-gradient(circle at 10% 20%,rgba(255,255,255,.035),transparent 26%),linear-gradient(135deg,#030406,#090b0e 45%,#07090c)!important;background-color:#050609!important}
+header{background:rgba(5,6,9,.96)!important;border-bottom-color:#2d3239!important}
+.lz-eyebrow{color:#ff3a42;font-size:10px;font-weight:900;letter-spacing:.16em;margin-bottom:6px}
+.card{background:linear-gradient(180deg,rgba(13,16,21,.98),rgba(9,11,15,.98))!important;box-shadow:0 8px 32px rgba(0,0,0,.22)}
+.card:hover{border-color:#61232a}
+.num{background:#161a20!important;color:#ff3a42!important;border:1px solid #343a42}
+.value{background:#190b0d!important;color:#f3c0c3!important;border:1px solid #61232a}
+.fill{background:linear-gradient(90deg,#525a63,#e31b23)!important}
+.source a{color:#ff6b70!important}
+.controls input:focus{outline:none;border-color:#e31b23}
+.legend,.source{background:linear-gradient(180deg,rgba(13,16,21,.98),rgba(9,11,15,.98))!important}
+.legend{border-left:4px solid #e31b23!important}
+</style></head><body>
+<header><div class="lz-eyebrow">ʟᴀɢᴢᴇʀᴏ // NVIDIA VERSTEHEN</div><h1>NVIDIA Systemsteuerung – 3D-Einstellungen</h1>
+<p>Verständliche Übersicht deiner gewählten globalen Einstellungen.</p>
+<div class="controls"><input id="search" type="search" placeholder="Einstellung suchen …"></div></header>
+<main><div class="legend"><b>So liest du die Balken:</b> Je weiter rechts, desto stärker die Tendenz in dieser Kategorie. Die Werte sind <b>keine gemessenen FPS- oder Millisekunden-Werte</b>. Die tatsächliche Wirkung hängt von Spiel, API, GPU und Monitor ab.</div>
+<section class="grid">
+<article class="card" data-search="antialiasing – fxaa aus post-processing-kantenglättung. glättet kanten nach dem rendern, kann das bild aber leicht weich wirken lassen. aus spart etwas gpu-aufwand und überlässt die eigentliche kantenglättung dem spiel.">
+<div class="top"><div class="num">1</div><div><h2>Antialiasing – FXAA</h2><span class="value">Aus</span></div></div>
+<p class="desc"><b>Was macht das?</b> Post-Processing-Kantenglättung. Glättet Kanten nach dem Rendern, kann das Bild aber leicht weich wirken lassen.</p><p class="impact"><b>Auswirkung:</b> Aus spart etwas GPU-Aufwand und überlässt die eigentliche Kantenglättung dem Spiel.</p>
+<span class="label">Relative Tendenz – kein FPS-Benchmark</span>
+<div class="barrow"><span>Performance</span><div class="bar"><div class="fill" style="width:90%"></div></div><span>90</span></div>
+<div class="barrow"><span>Qualität</span><div class="bar"><div class="fill" style="width:70%"></div></div><span>70</span></div>
+<div class="barrow"><span>Latenz</span><div class="bar"><div class="fill" style="width:90%"></div></div><span>90</span></div>
+<div class="note"></div></article>
+<article class="card" data-search="antialiasing – modus anwendungsgesteuert legt fest, ob der nvidia-treiber kantenglättung erzwingt oder das spiel selbst entscheidet. das spiel behält die kontrolle und vermeidet konflikte mit seiner eigenen aa-implementierung.">
+<div class="top"><div class="num">2</div><div><h2>Antialiasing – Modus</h2><span class="value">Anwendungsgesteuert</span></div></div>
+<p class="desc"><b>Was macht das?</b> Legt fest, ob der NVIDIA-Treiber Kantenglättung erzwingt oder das Spiel selbst entscheidet.</p><p class="impact"><b>Auswirkung:</b> Das Spiel behält die Kontrolle und vermeidet Konflikte mit seiner eigenen AA-Implementierung.</p>
+<span class="label">Relative Tendenz – kein FPS-Benchmark</span>
+<div class="barrow"><span>Performance</span><div class="bar"><div class="fill" style="width:95%"></div></div><span>95</span></div>
+<div class="barrow"><span>Qualität</span><div class="bar"><div class="fill" style="width:80%"></div></div><span>80</span></div>
+<div class="barrow"><span>Latenz</span><div class="bar"><div class="fill" style="width:95%"></div></div><span>95</span></div>
+<div class="note"></div></article>
+<article class="card" data-search="antialiasing – einstellung anwendungsgesteuert bestimmt die stärke des klassischen msaa, sofern der gewählte aa-modus es nutzt. keine treiber-vorgabe; das spiel bestimmt die stufe und damit auch die kosten.">
+<div class="top"><div class="num">3</div><div><h2>Antialiasing – Einstellung</h2><span class="value">Anwendungsgesteuert</span></div></div>
+<p class="desc"><b>Was macht das?</b> Bestimmt die Stärke des klassischen MSAA, sofern der gewählte AA-Modus es nutzt.</p><p class="impact"><b>Auswirkung:</b> Keine Treiber-Vorgabe; das Spiel bestimmt die Stufe und damit auch die Kosten.</p>
+<span class="label">Relative Tendenz – kein FPS-Benchmark</span>
+<div class="barrow"><span>Performance</span><div class="bar"><div class="fill" style="width:95%"></div></div><span>95</span></div>
+<div class="barrow"><span>Qualität</span><div class="bar"><div class="fill" style="width:80%"></div></div><span>80</span></div>
+<div class="barrow"><span>Latenz</span><div class="bar"><div class="fill" style="width:95%"></div></div><span>95</span></div>
+<div class="note"></div></article>
+<article class="card" data-search="antialiasing – gammakorrektur ein verbessert die darstellung geglätteter kanten durch eine gamma-korrigierte berechnung. kann die kantendarstellung verbessern; die performance-auswirkung ist normalerweise gering.">
+<div class="top"><div class="num">4</div><div><h2>Antialiasing – Gammakorrektur</h2><span class="value">Ein</span></div></div>
+<p class="desc"><b>Was macht das?</b> Verbessert die Darstellung geglätteter Kanten durch eine gamma-korrigierte Berechnung.</p><p class="impact"><b>Auswirkung:</b> Kann die Kantendarstellung verbessern; die Performance-Auswirkung ist normalerweise gering.</p>
+<span class="label">Relative Tendenz – kein FPS-Benchmark</span>
+<div class="barrow"><span>Performance</span><div class="bar"><div class="fill" style="width:95%"></div></div><span>95</span></div>
+<div class="barrow"><span>Qualität</span><div class="bar"><div class="fill" style="width:90%"></div></div><span>90</span></div>
+<div class="barrow"><span>Latenz</span><div class="bar"><div class="fill" style="width:95%"></div></div><span>95</span></div>
+<div class="note"></div></article>
+<article class="card" data-search="antialiasing – transparenz aus glättet transparente texturen, etwa zäune, gitter oder vegetation. aus spart zusätzlichen gpu-aufwand, reduziert aber die glättung transparenter flächen.">
+<div class="top"><div class="num">5</div><div><h2>Antialiasing – Transparenz</h2><span class="value">Aus</span></div></div>
+<p class="desc"><b>Was macht das?</b> Glättet transparente Texturen, etwa Zäune, Gitter oder Vegetation.</p><p class="impact"><b>Auswirkung:</b> Aus spart zusätzlichen GPU-Aufwand, reduziert aber die Glättung transparenter Flächen.</p>
+<span class="label">Relative Tendenz – kein FPS-Benchmark</span>
+<div class="barrow"><span>Performance</span><div class="bar"><div class="fill" style="width:95%"></div></div><span>95</span></div>
+<div class="barrow"><span>Qualität</span><div class="bar"><div class="fill" style="width:70%"></div></div><span>70</span></div>
+<div class="barrow"><span>Latenz</span><div class="bar"><div class="fill" style="width:95%"></div></div><span>95</span></div>
+<div class="note"></div></article>
+<article class="card" data-search="anisotrope filterung anwendungsgesteuert verbessert die schärfe von texturen, die schräg zur kamera liegen, etwa boden- und straßenflächen. das spiel bestimmt die af-stufe. höhere stufen verbessern die texturqualität; der performance-verlust ist auf modernen gpus oft gering.">
+<div class="top"><div class="num">6</div><div><h2>Anisotrope Filterung</h2><span class="value">Anwendungsgesteuert</span></div></div>
+<p class="desc"><b>Was macht das?</b> Verbessert die Schärfe von Texturen, die schräg zur Kamera liegen, etwa Boden- und Straßenflächen.</p><p class="impact"><b>Auswirkung:</b> Das Spiel bestimmt die AF-Stufe. Höhere Stufen verbessern die Texturqualität; der Performance-Verlust ist auf modernen GPUs oft gering.</p>
+<span class="label">Relative Tendenz – kein FPS-Benchmark</span>
+<div class="barrow"><span>Performance</span><div class="bar"><div class="fill" style="width:95%"></div></div><span>95</span></div>
+<div class="barrow"><span>Qualität</span><div class="bar"><div class="fill" style="width:90%"></div></div><span>90</span></div>
+<div class="barrow"><span>Latenz</span><div class="bar"><div class="fill" style="width:95%"></div></div><span>95</span></div>
+<div class="note"></div></article>
+<article class="card" data-search="umgebungsverdeckung aus erzeugt zusätzliche weiche schatten in kontakt- und umgebungsbereichen und erhöht die tiefenwirkung. aus spart gpu-leistung, reduziert aber diese zusätzliche schattierung.">
+<div class="top"><div class="num">7</div><div><h2>Umgebungsverdeckung</h2><span class="value">Aus</span></div></div>
+<p class="desc"><b>Was macht das?</b> Erzeugt zusätzliche weiche Schatten in Kontakt- und Umgebungsbereichen und erhöht die Tiefenwirkung.</p><p class="impact"><b>Auswirkung:</b> Aus spart GPU-Leistung, reduziert aber diese zusätzliche Schattierung.</p>
+<span class="label">Relative Tendenz – kein FPS-Benchmark</span>
+<div class="barrow"><span>Performance</span><div class="bar"><div class="fill" style="width:95%"></div></div><span>95</span></div>
+<div class="barrow"><span>Qualität</span><div class="bar"><div class="fill" style="width:65%"></div></div><span>65</span></div>
+<div class="barrow"><span>Latenz</span><div class="bar"><div class="fill" style="width:95%"></div></div><span>95</span></div>
+<div class="note"></div></article>
+<article class="card" data-search="energieverwaltungsmodus maximale leistung bevorzugen steuert, wie aggressiv die gpu taktraten und leistungszustände reduziert. die gpu hält bei bedarf höhere taktraten. das kann latenz und taktwechsel reduzieren, erhöht aber stromverbrauch und wärme.">
+<div class="top"><div class="num">8</div><div><h2>Energieverwaltungsmodus</h2><span class="value">Maximale Leistung bevorzugen</span></div></div>
+<p class="desc"><b>Was macht das?</b> Steuert, wie aggressiv die GPU Taktraten und Leistungszustände reduziert.</p><p class="impact"><b>Auswirkung:</b> Die GPU hält bei Bedarf höhere Taktraten. Das kann Latenz und Taktwechsel reduzieren, erhöht aber Stromverbrauch und Wärme.</p>
+<span class="label">Relative Tendenz – kein FPS-Benchmark</span>
+<div class="barrow"><span>Performance</span><div class="bar"><div class="fill" style="width:100%"></div></div><span>100</span></div>
+<div class="barrow"><span>Qualität</span><div class="bar"><div class="fill" style="width:100%"></div></div><span>100</span></div>
+<div class="barrow"><span>Latenz</span><div class="bar"><div class="fill" style="width:90%"></div></div><span>90</span></div>
+<div class="note">NVIDIA nennt diesen Modus als Option zur Latenzreduzierung.</div></article>
+<article class="card" data-search="bevorzugte aktualisierungsrate höchste verfügbar legt fest, welche verfügbare bildwiederholrate bevorzugt wird. die höchste hz-zahl ermöglicht eine geringere scanout-zeit und ein flüssigeres bild, sofern monitor und spiel sie verwenden.">
+<div class="top"><div class="num">9</div><div><h2>Bevorzugte Aktualisierungsrate</h2><span class="value">Höchste verfügbar</span></div></div>
+<p class="desc"><b>Was macht das?</b> Legt fest, welche verfügbare Bildwiederholrate bevorzugt wird.</p><p class="impact"><b>Auswirkung:</b> Die höchste Hz-Zahl ermöglicht eine geringere Scanout-Zeit und ein flüssigeres Bild, sofern Monitor und Spiel sie verwenden.</p>
+<span class="label">Relative Tendenz – kein FPS-Benchmark</span>
+<div class="barrow"><span>Performance</span><div class="bar"><div class="fill" style="width:100%"></div></div><span>100</span></div>
+<div class="barrow"><span>Qualität</span><div class="bar"><div class="fill" style="width:95%"></div></div><span>95</span></div>
+<div class="barrow"><span>Latenz</span><div class="bar"><div class="fill" style="width:100%"></div></div><span>100</span></div>
+<div class="note"></div></article>
+<article class="card" data-search="modus für geringe latenz ein begrenzt die anzahl der frames, die der treiber vor dem rendern in die warteschlange stellt. kann die eingabelatenz reduzieren, besonders bei gpu-limitierten dx9/dx11-spielen. bei unterstützten spielen ist nvidia reflex die bevorzugte lösung.">
+<div class="top"><div class="num">10</div><div><h2>Modus für geringe Latenz</h2><span class="value">Ein</span></div></div>
+<p class="desc"><b>Was macht das?</b> Begrenzt die Anzahl der Frames, die der Treiber vor dem Rendern in die Warteschlange stellt.</p><p class="impact"><b>Auswirkung:</b> Kann die Eingabelatenz reduzieren, besonders bei GPU-limitierten DX9/DX11-Spielen. Bei unterstützten Spielen ist NVIDIA Reflex die bevorzugte Lösung.</p>
+<span class="label">Relative Tendenz – kein FPS-Benchmark</span>
+<div class="barrow"><span>Performance</span><div class="bar"><div class="fill" style="width:95%"></div></div><span>95</span></div>
+<div class="barrow"><span>Qualität</span><div class="bar"><div class="fill" style="width:100%"></div></div><span>100</span></div>
+<div class="barrow"><span>Latenz</span><div class="bar"><div class="fill" style="width:90%"></div></div><span>90</span></div>
+<div class="note">Bei DX12/Vulkan entscheidet die Anwendung stärker über die Render-Warteschlange.</div></article>
+<article class="card" data-search="shadercache 100 gb bestimmt das speicherlimit für kompilierte shader-cache-daten. ein großer cache kann unnötiges erneutes kompilieren verhindern. er erhöht aber nicht automatisch die fps und benötigt freien speicherplatz.">
+<div class="top"><div class="num">11</div><div><h2>Shadercache</h2><span class="value">100 GB</span></div></div>
+<p class="desc"><b>Was macht das?</b> Bestimmt das Speicherlimit für kompilierte Shader-Cache-Daten.</p><p class="impact"><b>Auswirkung:</b> Ein großer Cache kann unnötiges erneutes Kompilieren verhindern. Er erhöht aber nicht automatisch die FPS und benötigt freien Speicherplatz.</p>
+<span class="label">Relative Tendenz – kein FPS-Benchmark</span>
+<div class="barrow"><span>Performance</span><div class="bar"><div class="fill" style="width:100%"></div></div><span>100</span></div>
+<div class="barrow"><span>Qualität</span><div class="bar"><div class="fill" style="width:100%"></div></div><span>100</span></div>
+<div class="barrow"><span>Latenz</span><div class="bar"><div class="fill" style="width:100%"></div></div><span>100</span></div>
+<div class="note">100 GB ist ein Speicherlimit, kein direkter Performance-Regler.</div></article>
+<article class="card" data-search="texturfilterung – anisotrope filteroptimierung ein optimiert anisotrope filterung, indem bestimmte filterstufen effizienter behandelt werden. kann performance gewinnen, mit einer möglichen kleinen einbuße bei der filterqualität.">
+<div class="top"><div class="num">12</div><div><h2>Texturfilterung – Anisotrope Filteroptimierung</h2><span class="value">Ein</span></div></div>
+<p class="desc"><b>Was macht das?</b> Optimiert anisotrope Filterung, indem bestimmte Filterstufen effizienter behandelt werden.</p><p class="impact"><b>Auswirkung:</b> Kann Performance gewinnen, mit einer möglichen kleinen Einbuße bei der Filterqualität.</p>
+<span class="label">Relative Tendenz – kein FPS-Benchmark</span>
+<div class="barrow"><span>Performance</span><div class="bar"><div class="fill" style="width:96%"></div></div><span>96</span></div>
+<div class="barrow"><span>Qualität</span><div class="bar"><div class="fill" style="width:88%"></div></div><span>88</span></div>
+<div class="barrow"><span>Latenz</span><div class="bar"><div class="fill" style="width:96%"></div></div><span>96</span></div>
+<div class="note">NVIDIA beschreibt die Optimierung als Performance-Verbesserung mit minimalem Qualitätsverlust; DirectX-bezogen.</div></article>
+<article class="card" data-search="texturfilterung – negativer lod-bias zulassen erlaubt anwendungen bei anisotroper filterung einen negativen level-of-detail-bias zu verwenden. kann texturen schärfer wirken lassen, kann aber auch flimmern/shimmering begünstigen.">
+<div class="top"><div class="num">13</div><div><h2>Texturfilterung – Negativer LOD-Bias</h2><span class="value">Zulassen</span></div></div>
+<p class="desc"><b>Was macht das?</b> Erlaubt Anwendungen bei anisotroper Filterung einen negativen Level-of-Detail-Bias zu verwenden.</p><p class="impact"><b>Auswirkung:</b> Kann Texturen schärfer wirken lassen, kann aber auch Flimmern/Shimmering begünstigen.</p>
+<span class="label">Relative Tendenz – kein FPS-Benchmark</span>
+<div class="barrow"><span>Performance</span><div class="bar"><div class="fill" style="width:95%"></div></div><span>95</span></div>
+<div class="barrow"><span>Qualität</span><div class="bar"><div class="fill" style="width:80%"></div></div><span>80</span></div>
+<div class="barrow"><span>Latenz</span><div class="bar"><div class="fill" style="width:98%"></div></div><span>98</span></div>
+<div class="note">NVIDIA: Allow lässt Anwendungen einen negativen LOD-Bias anfordern; Clamp begrenzt ihn auf 0.</div></article>
+<article class="card" data-search="texturfilterung – qualität hohe leistung bündelt mehrere treiber-optimierungen entsprechend der gewählten qualitätsstufe. hohe leistung priorisiert maximale bildrate gegenüber maximaler filterqualität. texturen können etwas weniger sauber wirken.">
+<div class="top"><div class="num">14</div><div><h2>Texturfilterung – Qualität</h2><span class="value">Hohe Leistung</span></div></div>
+<p class="desc"><b>Was macht das?</b> Bündelt mehrere Treiber-Optimierungen entsprechend der gewählten Qualitätsstufe.</p><p class="impact"><b>Auswirkung:</b> Hohe Leistung priorisiert maximale Bildrate gegenüber maximaler Filterqualität. Texturen können etwas weniger sauber wirken.</p>
+<span class="label">Relative Tendenz – kein FPS-Benchmark</span>
+<div class="barrow"><span>Performance</span><div class="bar"><div class="fill" style="width:100%"></div></div><span>100</span></div>
+<div class="barrow"><span>Qualität</span><div class="bar"><div class="fill" style="width:75%"></div></div><span>75</span></div>
+<div class="barrow"><span>Latenz</span><div class="bar"><div class="fill" style="width:98%"></div></div><span>98</span></div>
+<div class="note">NVIDIA beschreibt High Performance als höchste mögliche Bildrate.</div></article>
+<article class="card" data-search="texturfilterung – trilineare optimierung ein erlaubt an stellen, an denen trilineare filterung nicht nötig ist, eine günstigere bilineare filterung. kann texturfilterung beschleunigen, mit einer kleinen möglichen qualitätsabweichung.">
+<div class="top"><div class="num">15</div><div><h2>Texturfilterung – Trilineare Optimierung</h2><span class="value">Ein</span></div></div>
+<p class="desc"><b>Was macht das?</b> Erlaubt an Stellen, an denen trilineare Filterung nicht nötig ist, eine günstigere bilineare Filterung.</p><p class="impact"><b>Auswirkung:</b> Kann Texturfilterung beschleunigen, mit einer kleinen möglichen Qualitätsabweichung.</p>
+<span class="label">Relative Tendenz – kein FPS-Benchmark</span>
+<div class="barrow"><span>Performance</span><div class="bar"><div class="fill" style="width:97%"></div></div><span>97</span></div>
+<div class="barrow"><span>Qualität</span><div class="bar"><div class="fill" style="width:88%"></div></div><span>88</span></div>
+<div class="barrow"><span>Latenz</span><div class="bar"><div class="fill" style="width:97%"></div></div><span>97</span></div>
+<div class="note">NVIDIA: Performance-Optimierung; betrifft DirectX-Programme.</div></article>
+<article class="card" data-search="threaded optimization auto erlaubt anwendungen, mehrere cpu-kerne für bestimmte treiberaufgaben zu nutzen. auto überlässt dem treiber die entscheidung. erzwingen ist nicht grundsätzlich schneller.">
+<div class="top"><div class="num">17</div><div><h2>Threaded Optimization</h2><span class="value">Auto</span></div></div>
+<p class="desc"><b>Was macht das?</b> Erlaubt Anwendungen, mehrere CPU-Kerne für bestimmte Treiberaufgaben zu nutzen.</p><p class="impact"><b>Auswirkung:</b> Auto überlässt dem Treiber die Entscheidung. Erzwingen ist nicht grundsätzlich schneller.</p>
+<span class="label">Relative Tendenz – kein FPS-Benchmark</span>
+<div class="barrow"><span>Performance</span><div class="bar"><div class="fill" style="width:95%"></div></div><span>95</span></div>
+<div class="barrow"><span>Qualität</span><div class="bar"><div class="fill" style="width:100%"></div></div><span>100</span></div>
+<div class="barrow"><span>Latenz</span><div class="bar"><div class="fill" style="width:95%"></div></div><span>95</span></div>
+<div class="note"></div></article>
+<article class="card" data-search="umgebungsverdeckung aus identisch mit punkt 7: zusätzliche weiche umgebungs- und kontaktschatten. aus spart leistung, reduziert aber die zusätzliche tiefenwirkung.">
+<div class="top"><div class="num">18</div><div><h2>Umgebungsverdeckung</h2><span class="value">Aus</span></div></div>
+<p class="desc"><b>Was macht das?</b> Identisch mit Punkt 7: zusätzliche weiche Umgebungs- und Kontaktschatten.</p><p class="impact"><b>Auswirkung:</b> Aus spart Leistung, reduziert aber die zusätzliche Tiefenwirkung.</p>
+<span class="label">Relative Tendenz – kein FPS-Benchmark</span>
+<div class="barrow"><span>Performance</span><div class="bar"><div class="fill" style="width:95%"></div></div><span>95</span></div>
+<div class="barrow"><span>Qualität</span><div class="bar"><div class="fill" style="width:65%"></div></div><span>65</span></div>
+<div class="barrow"><span>Latenz</span><div class="bar"><div class="fill" style="width:95%"></div></div><span>95</span></div>
+<div class="note">In deiner Liste doppelt vorhanden.</div></article>
+<article class="card" data-search="vertikale synchronisierung aus synchronisiert die bildausgabe mit der bildwiederholrate des monitors, um klassisches tearing zu verhindern. aus minimiert zusätzliche synchronisationswartezeiten und erlaubt maximale fps, kann aber tearing verursachen.">
+<div class="top"><div class="num">19</div><div><h2>Vertikale Synchronisierung</h2><span class="value">Aus</span></div></div>
+<p class="desc"><b>Was macht das?</b> Synchronisiert die Bildausgabe mit der Bildwiederholrate des Monitors, um klassisches Tearing zu verhindern.</p><p class="impact"><b>Auswirkung:</b> Aus minimiert zusätzliche Synchronisationswartezeiten und erlaubt maximale FPS, kann aber Tearing verursachen.</p>
+<span class="label">Relative Tendenz – kein FPS-Benchmark</span>
+<div class="barrow"><span>Performance</span><div class="bar"><div class="fill" style="width:100%"></div></div><span>100</span></div>
+<div class="barrow"><span>Qualität</span><div class="bar"><div class="fill" style="width:85%"></div></div><span>85</span></div>
+<div class="barrow"><span>Latenz</span><div class="bar"><div class="fill" style="width:100%"></div></div><span>100</span></div>
+<div class="note">NVIDIA empfiehlt V-SYNC aus für minimale Latenz, wenn Tearing akzeptiert wird.</div></article>
+<article class="card" data-search="virtual reality – supersampling aus skaliert die interne renderauflösung in vr höher als die ausgabeauflösung. aus spart gpu-leistung; ein kann die bildschärfe verbessern, kostet aber deutlich mehr rendering-leistung.">
+<div class="top"><div class="num">20</div><div><h2>Virtual Reality – Supersampling</h2><span class="value">Aus</span></div></div>
+<p class="desc"><b>Was macht das?</b> Skaliert die interne Renderauflösung in VR höher als die Ausgabeauflösung.</p><p class="impact"><b>Auswirkung:</b> Aus spart GPU-Leistung; Ein kann die Bildschärfe verbessern, kostet aber deutlich mehr Rendering-Leistung.</p>
+<span class="label">Relative Tendenz – kein FPS-Benchmark</span>
+<div class="barrow"><span>Performance</span><div class="bar"><div class="fill" style="width:100%"></div></div><span>100</span></div>
+<div class="barrow"><span>Qualität</span><div class="bar"><div class="fill" style="width:70%"></div></div><span>70</span></div>
+<div class="barrow"><span>Latenz</span><div class="bar"><div class="fill" style="width:95%"></div></div><span>95</span></div>
+<div class="note"></div></article>
+<article class="card" data-search="vorgerenderte virtual-reality-einzelbilder 1 bestimmt, wie viele vr-frames die cpu im voraus für die gpu vorbereiten darf. ein niedriger wert kann die latenz reduzieren; höhere werte können unter umständen mehr spielraum gegen cpu-schwankungen bieten.">
+<div class="top"><div class="num">21</div><div><h2>Vorgerenderte Virtual-Reality-Einzelbilder</h2><span class="value">1</span></div></div>
+<p class="desc"><b>Was macht das?</b> Bestimmt, wie viele VR-Frames die CPU im Voraus für die GPU vorbereiten darf.</p><p class="impact"><b>Auswirkung:</b> Ein niedriger Wert kann die Latenz reduzieren; höhere Werte können unter Umständen mehr Spielraum gegen CPU-Schwankungen bieten.</p>
+<span class="label">Relative Tendenz – kein FPS-Benchmark</span>
+<div class="barrow"><span>Performance</span><div class="bar"><div class="fill" style="width:95%"></div></div><span>95</span></div>
+<div class="barrow"><span>Qualität</span><div class="bar"><div class="fill" style="width:100%"></div></div><span>100</span></div>
+<div class="barrow"><span>Latenz</span><div class="bar"><div class="fill" style="width:90%"></div></div><span>90</span></div>
+<div class="note">1 priorisiert eine kurze Render-Warteschlange.</div></article>
+<article class="card" data-search="vulkan/opengl – present-methode auto steuert, wie vulkan/opengl-frames an das windows-fenster- bzw. display-system übergeben werden. auto lässt treiber und anwendung den passenden präsentationsweg wählen.">
+<div class="top"><div class="num">22</div><div><h2>Vulkan/OpenGL – Present-Methode</h2><span class="value">Auto</span></div></div>
+<p class="desc"><b>Was macht das?</b> Steuert, wie Vulkan/OpenGL-Frames an das Windows-Fenster- bzw. Display-System übergeben werden.</p><p class="impact"><b>Auswirkung:</b> Auto lässt Treiber und Anwendung den passenden Präsentationsweg wählen.</p>
+<span class="label">Relative Tendenz – kein FPS-Benchmark</span>
+<div class="barrow"><span>Performance</span><div class="bar"><div class="fill" style="width:95%"></div></div><span>95</span></div>
+<div class="barrow"><span>Qualität</span><div class="bar"><div class="fill" style="width:100%"></div></div><span>100</span></div>
+<div class="barrow"><span>Latenz</span><div class="bar"><div class="fill" style="width:95%"></div></div><span>95</span></div>
+<div class="note">Der genaue Name kann je nach Treiberversion variieren.</div></article>
+<article class="card" data-search="opengl rendernde gpu auto bestimmt, welche gpu für opengl-anwendungen verwendet wird. auto wählt die passende gpu. bei mehreren gpus kann eine explizite auswahl sinnvoll sein.">
+<div class="top"><div class="num">23</div><div><h2>OpenGL rendernde GPU</h2><span class="value">Auto</span></div></div>
+<p class="desc"><b>Was macht das?</b> Bestimmt, welche GPU für OpenGL-Anwendungen verwendet wird.</p><p class="impact"><b>Auswirkung:</b> Auto wählt die passende GPU. Bei mehreren GPUs kann eine explizite Auswahl sinnvoll sein.</p>
+<span class="label">Relative Tendenz – kein FPS-Benchmark</span>
+<div class="barrow"><span>Performance</span><div class="bar"><div class="fill" style="width:95%"></div></div><span>95</span></div>
+<div class="barrow"><span>Qualität</span><div class="bar"><div class="fill" style="width:100%"></div></div><span>100</span></div>
+<div class="barrow"><span>Latenz</span><div class="bar"><div class="fill" style="width:95%"></div></div><span>95</span></div>
+<div class="note"></div></article>
+<article class="card" data-search="opengl gdi-kompatibilität auto steuert kompatibilitätsverhalten zwischen opengl und älteren windows-gdi-funktionen. auto lässt den treiber die passende kompatibilität wählen. für moderne spiele ist dies normalerweise kein performance-hebel.">
+<div class="top"><div class="num">24</div><div><h2>OpenGL GDI-Kompatibilität</h2><span class="value">Auto</span></div></div>
+<p class="desc"><b>Was macht das?</b> Steuert Kompatibilitätsverhalten zwischen OpenGL und älteren Windows-GDI-Funktionen.</p><p class="impact"><b>Auswirkung:</b> Auto lässt den Treiber die passende Kompatibilität wählen. Für moderne Spiele ist dies normalerweise kein Performance-Hebel.</p>
+<span class="label">Relative Tendenz – kein FPS-Benchmark</span>
+<div class="barrow"><span>Performance</span><div class="bar"><div class="fill" style="width:100%"></div></div><span>100</span></div>
+<div class="barrow"><span>Qualität</span><div class="bar"><div class="fill" style="width:100%"></div></div><span>100</span></div>
+<div class="barrow"><span>Latenz</span><div class="bar"><div class="fill" style="width:100%"></div></div><span>100</span></div>
+<div class="note"></div></article></section>
+<section class="source"><h2>Quellen</h2>
+<p><a href="https://www.nvidia.com/content/Control-Panel-Help/vLatest/en-us/mergedProjects/3D%20Settings/Manage_3D_Settings_%28reference%29.htm" target="_blank" rel="noopener">NVIDIA – Manage 3D Settings (Reference)</a></p>
+<p><a href="https://www.nvidia.com/en-us/geforce/guides/system-latency-optimization-guide/" target="_blank" rel="noopener">NVIDIA – System Latency Optimization Guide</a></p>
+<p><a href="https://www.nvidia.com/en-us/geforce/news/gamescom-2019-game-ready-driver/" target="_blank" rel="noopener">NVIDIA – Low Latency Mode</a></p>
+<p>Hinweis: Punkt 16 fehlt in deiner Ausgangsliste. „Umgebungsverdeckung“ steht doppelt bei 7 und 18 und wurde entsprechend dokumentiert.</p></section></main>
+<script>
+const cards=[...document.querySelectorAll('.card')];
+const search=document.querySelector('#search');
+search.addEventListener('input',()=>{const q=search.value.toLowerCase();cards.forEach(c=>c.classList.toggle('hidden',!c.dataset.search.includes(q)))});
+</script><script>
+/* Externe Links (z. B. Discord) zuverlässig öffnen – auch wenn die Seite eingebettet ist */
+document.addEventListener('click',function(e){
+  var a=e.target.closest('a[href^="http"]'); if(!a||e.defaultPrevented) return;
+  e.preventDefault();
+  var w=null; try{ w=window.open(a.href,'_blank'); }catch(_){}
+  if(w){ try{ w.opener=null; }catch(_){} }
+  else { try{ window.top.location.href=a.href; }catch(_){ location.href=a.href; } }
+});
+</script>
+<div class="lz-copyright" style="text-align:center;padding:18px 16px 28px;font-size:11px;letter-spacing:.03em;color:#9aabba">© 2026 LAG|ZERØ · Alle Rechte vorbehalten. Kopieren oder Weiterverbreiten ohne Erlaubnis ist nicht gestattet.</div>
+</body></html>
